@@ -7,16 +7,26 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "json-server": "^1.0.0-beta.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
+    "resolve-url-loader": "^5.0.0",
+    "typescript": "^5.6.3",
     "web-vitals": "^2.1.4"
+  },
+  "resolutions": {
+    "nth-check": "^2.1.1",
+    "postcss": "^8.4.47"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "babuild": "babel src --out-dir dist"
   },
   "eslintConfig": {
     "extends": [
@@ -35,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/preset-env": "^7.26.0"
   }
 }
