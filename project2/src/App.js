@@ -41,12 +41,31 @@ function App (){
     };
   };
 
+  const deleteFood = (id) =>{
+    const foodToDel = foodItems.find((food)=> food.id=== id); 
+    console.log("Deleting food", foodToDel);
+
+    axios
+      .delete(`${API_URL}/${id}`)
+      .then(()=>{
+        setFoodItems((prevItems)=> prevItems.filter((food)=> food.id !== id));
+      })
+      .catch((error)=>{
+        if(error.response){
+          console.error('Error deleting food:', error.response.data);
+        }else{
+          console.error('Network error:', error);
+        }
+      });
+  };
+
   return (
     <div className="App">
-      <Header title="Fooderington" />
+      <Header title="FoodMgr" />
       <Content 
         foodItems= {foodItems}
         addFood = {addFood}
+        deleteFood={deleteFood}
         setFoodInput={setFoodInput}
         setFoodItems={setFoodItems}
       />

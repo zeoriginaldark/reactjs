@@ -11,13 +11,14 @@ const Content = ({ foodItems, foodInput, addFood, deleteFood, setFoodInput }) =>
         onChange={(e) => setFoodInput(e.target.value)}
         placeholder="Add a new food item"
       />
-      <button onClick={addFood}>Add Food</button>
+      <button className='addbtn' onClick={addFood}>Add Food</button>
     </div>
     <ul>
       {Array.isArray(foodItems) && foodItems.length > 0 ? (
         foodItems.map((food, index) => (
           <li key={food.id || index}>
             {food.name}
+            <button onClick={()=> deleteFood(food.id)}>Delete</button>
           </li>
         ))
       ) : (
