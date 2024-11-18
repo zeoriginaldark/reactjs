@@ -18,7 +18,7 @@ const Content = ({ foodItems, foodInput, addFood, deleteFood, setFoodInput }) =>
         foodItems.map((food, index) => (
           <li key={food.id || index}>
             {food.name}
-            <button onClick={()=> deleteFood(food.id)}>Delete</button>
+            <button className='deletebtn' onClick={()=> deleteFood(food.id)}>Delete</button>
           </li>
         ))
       ) : (

@@ -51,9 +51,23 @@ li:hover {
   background-color: #e0e0e0;
 }
 
-/* Button to delete food items */
-button {
-  background-color: #ff4747;
+.addbtn {
+  background-color: #008a22;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.addbtn:hover {
+  background-color: #005e1f;
+}
+
+.deletebtn{
+  background-color: #ff0000;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -63,20 +77,8 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #ff2b2b;
-}
-
-/* Button to add new food */
-.addbtn {
-  background-color: #007c3e;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+.deletebtn:hover{
+  background-color: #960a0a;
 }
 
 button.add-food:hover {
