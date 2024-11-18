@@ -1,5 +1,16 @@
 {
-    "items":[
-        
+    "foods": [
+      {
+        "id": "1",
+        "name": "apple"
+      },
+      {
+        "id": "2",
+        "name": "lychee"
+      },
+      {
+        "id": "3",
+        "name": "banana"
+      }
     ]
-}
+  }

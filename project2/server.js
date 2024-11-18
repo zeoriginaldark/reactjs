@@ -10,13 +10,15 @@ app.use(express.json());
 
 // In-memory data store (temporary solution for demo purposes)
 let foodItems = [
-  'apple',
-  'chocolate',
+  { id: 1, name: 'apple' },
+  { id: 2, name: 'chocolate' }
 ];
+
+let nextId = 3;
 
 // API Routes
 // Get all food items
-app.get("/api/foods", (req, res) => {
+app.get("/api/foods", (_req, res) => {
   res.json(foodItems);
 });
 
@@ -28,12 +30,12 @@ app.post("/api/foods", (req, res) => {
   }
 
   // Check if the food name already exists (case-insensitive)
-  const foodExists = foodItems.some(item => item.name.toLowerCase() === newFoodName.toLowerCase());
+  const foodExists = foodItems.some(item => item.name && item.name.toLowerCase() === newFoodName.toLowerCase());
   if (foodExists) {
     return res.status(400).json({ message: "Food item already exists." });
   }
 
-  const newFood = { id: foodItems.length + 1, name: newFoodName }; // Generate a simple id
+  const newFood = { id: nextId++, name: newFoodName }; // Generate a simple id
   foodItems.push(newFood);
   res.status(201).json({ message: "Food item added successfully", foodItems });
 });

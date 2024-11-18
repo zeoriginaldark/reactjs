@@ -5,13 +5,19 @@
   box-sizing: border-box;
 }
 
+.App{
+  display:flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 /* Apply a background color and padding to the entire body */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f8f8f8;
   color: #333;
   padding: 20px;
-  height: 100vh;
+  height:100%;
 }
 
 /* Container to center the app content */
@@ -22,14 +28,6 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Heading styling */
-h1 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333;
 }
 
 /* The list of food items */
@@ -101,12 +99,4 @@ input[type="text"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-/* Optional: Small section at the bottom for info or additional UI */
-.footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 0.8rem;
-  color: #888;
 }
