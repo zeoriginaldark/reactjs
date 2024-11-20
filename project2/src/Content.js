@@ -1,5 +1,6 @@
 import React from 'react';
 import './Content.css'
+import Itemlist from './Itemlist';
 
 const Content = ({ foodItems, foodInput, addFood, deleteFood, setFoodInput }) => {
   return (
@@ -12,19 +13,11 @@ const Content = ({ foodItems, foodInput, addFood, deleteFood, setFoodInput }) =>
         placeholder="Add a new food item"
       />
       <button className='addbtn' onClick={addFood}>Add Food</button>
+      <Itemlist 
+        foodItems={foodItems}
+        deleteFood={deleteFood}
+      />
     </div>
-    <ul>
-      {Array.isArray(foodItems) && foodItems.length > 0 ? (
-        foodItems.map((food, index) => (
-          <li key={food.id || index}>
-            {food.name}
-            <button className='deletebtn' onClick={()=> deleteFood(food.id)}>Delete</button>
-          </li>
-        ))
-      ) : (
-        <li>No food items available</li>
-      )}
-    </ul>
 
   </main>
   )

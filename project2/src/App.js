@@ -69,7 +69,7 @@ function App (){
         setFoodInput={setFoodInput}
         setFoodItems={setFoodItems}
       />
-      <Footer/>
+      <Footer length={foodItems.length}/>
     </div>
   );
 }
