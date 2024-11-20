@@ -1,16 +1,3 @@
 {
-  "foods": [
-    {
-      "id": "8778",
-      "name": "apple"
-    },
-    {
-      "id": "6963",
-      "name": "banana"
-    },
-    {
-      "id": "0e80",
-      "name": "burger"
-    }
-  ]
+  "foods": []
 }

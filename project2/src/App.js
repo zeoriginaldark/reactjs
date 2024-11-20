@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import Header from './Header';
+import AddItem from './AddItem';
 import Content from './Content';
 import Footer from './Footer';
 import axios from 'axios';
@@ -62,11 +63,14 @@ function App (){
   return (
     <div className="App">
       <Header title="FoodMgr" />
+      <AddItem
+        foodInput={foodInput}
+        setFoodInput={setFoodInput}
+        addFood={addFood}
+      />
       <Content 
         foodItems= {foodItems}
-        addFood = {addFood}
         deleteFood={deleteFood}
-        setFoodInput={setFoodInput}
         setFoodItems={setFoodItems}
       />
       <Footer length={foodItems.length}/>
