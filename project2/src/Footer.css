@@ -1,5 +1,6 @@
 footer{
     background-color: #f8f8f8;
+    flex: 0 0 auto;
 }
 
 p{

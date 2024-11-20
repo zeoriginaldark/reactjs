@@ -2,7 +2,7 @@ import React from 'react'
 
 const LineItem = ({food, deleteFood}) => {
   return (
-    <li key={food.id}>
+    <li>
         {food.name}
         <button className='deletebtn' onClick={()=> deleteFood(food.id)}>Delete</button>
     </li>

@@ -6,7 +6,8 @@ const Itemlist = ({foodItems, deleteFood}) => {
     <ul>
       {Array.isArray(foodItems) && foodItems.length > 0 ? (
         foodItems.map((food) => (
-            <LineItem 
+            <LineItem
+                key={food.id} 
                 food={food}
                 deleteFood={deleteFood}
             />

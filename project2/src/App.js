@@ -22,7 +22,8 @@ function App (){
         .catch((error) => console.error('Error fetching food items', error));
     }, []);
   
-  const addFood = () => {
+  const addFood = (e) => {
+    e.preventDefault();
     console.log("Adding food", foodInput)
 
     if (foodInput) {
