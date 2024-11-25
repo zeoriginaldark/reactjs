@@ -12,16 +12,28 @@ function App (){
   const [foodItems, setFoodItems] = useState([]);
   const [foodInput, setFoodInput] = useState('');
   const [search, setSearch] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(API_URL)
-      .then((response) => {
-        if (response.data) {
-          setFoodItems(response.data);
-        }
-      })
-      .catch((error) => console.error('Error fetching food items', error));
+    const fetchItems = async() =>{
+      try {
+        axios
+        .get(API_URL)
+        .then((response) => {
+          if (response.data) {
+            setFoodItems(response.data);
+          }
+        })
+      } catch(error) {
+        console.error('Error fetching food items', error);
+      } finally{
+        setIsLoading(false);
+      } 
+    }
+    
+    setTimeout(() => {
+      (async()=> await fetchItems())();
+    }, 1500);
     }, []);
   
   const addFood = (e) => {
@@ -88,11 +100,15 @@ function App (){
         setFoodInput={setFoodInput}
         addFood={addFood}
       />
-      <Content 
-        foodItems= {filteredFoodItems}
-        deleteFood={deleteFood}
-        setFoodItems={setFoodItems}
-      />
+      <>
+        {isLoading && <p>Loading food items...</p>}
+        {!isLoading && <Content 
+          foodItems= {filteredFoodItems}
+          deleteFood={deleteFood}
+          setFoodItems={setFoodItems}
+        />}
+      </>
+      
       <Footer length={filteredFoodItems.length}/>
     </div>
   );
