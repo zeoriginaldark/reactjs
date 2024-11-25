@@ -14,7 +14,7 @@ ul {
 
 li {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
     padding: 10px;
     margin-bottom: 10px;
@@ -40,4 +40,64 @@ li:hover {
 
 .deletebtn:hover{
     background-color: #960a0a;
+}
+
+.editbtn {
+    background-color: #008a22;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+  
+.editbtn:hover {
+    background-color: #005e1f;
+}
+
+/* Input field for adding food items */
+input[type="text"] {
+    width: 20%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.savebtn {
+    background-color: #008a22;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+  
+.savebtn:hover {
+    background-color: #005e1f;
+}
+
+.cancelbtn{
+    background-color: #ff0000;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.cancelbtn:hover{
+    background-color: #960a0a;
+}
+
+.btngroup{
+    display:flex;
+    gap:10px;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import LineItem from './LineItem';
 
-const Itemlist = ({foodItems, deleteFood}) => {
+const Itemlist = ({foodItems, deleteFood, editFood}) => {
   return (
     <ul>
       {Array.isArray(foodItems) && foodItems.length > 0 ? (
@@ -10,6 +10,7 @@ const Itemlist = ({foodItems, deleteFood}) => {
                 key={food.id} 
                 food={food}
                 deleteFood={deleteFood}
+                editFood={editFood}
             />
         ))
       ) : (

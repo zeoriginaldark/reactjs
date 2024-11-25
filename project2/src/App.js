@@ -34,8 +34,32 @@ function App (){
     setTimeout(() => {
       (async()=> await fetchItems())();
     }, 1500);
-    }, []);
-  
+  }, []);
+
+  const editFood = (id, newName) =>{
+    if(!newName.trim()){
+      console.error("Error:New name cannot be empty.");
+      return;
+    }
+
+    axios
+      .put(`${API_URL}/${id}`, { name: newName })
+      .then((response) => {
+        setFoodItems((prevItems) =>
+          prevItems.map((food) =>
+            food.id === id ? { ...food, name: response.data.name } : food
+          )
+        );
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error('Error editing food:', error.response.data);
+        } else {
+          console.error('Network error:', error);
+        }
+      });
+  };
+
   const addFood = (e) => {
     e.preventDefault();
     if (foodInput.trim()) {
@@ -45,7 +69,7 @@ function App (){
         return;
       }
 
-      console.log("Adding food", foodInput)
+      console.log("Adding food", foodInput);
       axios
         .post(API_URL, { name: foodInput })
         .then((response) => {
@@ -104,8 +128,8 @@ function App (){
         {isLoading && <p>Loading food items...</p>}
         {!isLoading && <Content 
           foodItems= {filteredFoodItems}
+          editFood={editFood}
           deleteFood={deleteFood}
-          setFoodItems={setFoodItems}
         />}
       </>
       
