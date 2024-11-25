@@ -1,5 +1,6 @@
-form{
+.addForm{
     padding: 20px;
+    padding-top: 0px;
     background-color: #f8f8f8;
 }
 
@@ -26,4 +27,4 @@ input[type="text"] {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
-  }
+}
