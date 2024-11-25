@@ -93,7 +93,7 @@ function App (){
         deleteFood={deleteFood}
         setFoodItems={setFoodItems}
       />
-      <Footer length={foodItems.length}/>
+      <Footer length={filteredFoodItems.length}/>
     </div>
   );
 }
