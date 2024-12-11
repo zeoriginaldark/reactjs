@@ -6,20 +6,25 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.7",
+    "@types/react": "^18.0.0",
+    "axios": "^1.7.9",
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "json-server": "^1.0.0-beta.3",
+    "nth-check": "2.1.1",
+    "postcss-selector-parser": "^6.0.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^7.0.2",
     "react-scripts": "^5.0.1",
     "resolve-url-loader": "^5.0.0",
-    "typescript": "^5.6.3",
+    "styled-components": "^6.1.13",
+    "typescript": "^5.7.2",
     "web-vitals": "^2.1.4"
   },
   "resolutions": {
-    "nth-check": "^2.1.1",
-    "postcss": "^8.4.47"
+    "nth-check": "2.1.1",
+    "postcss": "8.4.31"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,7 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.25.9",
+    "@babel/cli": "^7.26.4",
     "@babel/preset-env": "^7.26.0"
   }
 }

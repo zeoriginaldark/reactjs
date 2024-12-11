@@ -1,9 +1,26 @@
 import React from 'react';
-import './SearchItem.css';
+import styled from 'styled-components';
+
+const StyledForm = styled.div`
+  form{
+    padding: 20px;
+    padding-bottom: 0px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+`
 
 const SearchItem = ({search, setSearch}) => {
   return (
-    <form className='searchForm' onSubmit={(e)=>e.preventDefault()}>
+    <StyledForm>
+      <form className='searchForm' onSubmit={(e)=>e.preventDefault()}>
         <input
             id="search"
             type="text"
@@ -12,7 +29,8 @@ const SearchItem = ({search, setSearch}) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
         />
-    </form>
+      </form>
+    </StyledForm>
   );
 }
 

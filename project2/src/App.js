@@ -1,18 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import './App.css';
+import {ThemeProvider} from 'styled-components';
+import { lightTheme, darkTheme } from './theme';
 import Header from './Header';
 import AddItem from './AddItem';
 import Content from './Content';
 import Footer from './Footer';
 import axios from 'axios';
 import SearchItem from './SearchItem';
+import GlobalStyles from './GlobalStyles';
 
 function App (){
   const API_URL = 'http://localhost:5000/foods';
+  const [theme, setTheme] = useState('light')
   const [foodItems, setFoodItems] = useState([]);
   const [foodInput, setFoodInput] = useState('');
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+
+  const toggleTheme = () =>{
+    setTheme((prev) => (prev ==='light'?'dark' : 'light'));
+  };
 
   useEffect(() => {
     const fetchItems = async() =>{
@@ -113,28 +120,34 @@ function App (){
     : foodItems;
 
   return (
-    <div className="App">
-      <Header title="FoodMgr" />
-      <SearchItem 
-        search={search}
-        setSearch={setSearch}
-      />
-      <AddItem
-        foodInput={foodInput}
-        setFoodInput={setFoodInput}
-        addFood={addFood}
-      />
-      <>
-        {isLoading && <p>Loading food items...</p>}
-        {!isLoading && <Content 
-          foodItems= {filteredFoodItems}
-          editFood={editFood}
-          deleteFood={deleteFood}
-        />}
-      </>
-      
-      <Footer length={filteredFoodItems.length}/>
-    </div>
+    <ThemeProvider theme={theme ==='light'? lightTheme: darkTheme}>
+      <GlobalStyles />
+      <div className="App">
+        <Header title="FoodMgr" />
+        <button className='lightdarkbtn' onClick={toggleTheme}>
+            Mode: {theme === 'light' ? 'Light' : 'Dark'}
+        </button>
+        <SearchItem 
+          search={search}
+          setSearch={setSearch}
+        />
+        <AddItem
+          foodInput={foodInput}
+          setFoodInput={setFoodInput}
+          addFood={addFood}
+        />
+        <>
+          {isLoading && <p>Loading food items...</p>}
+          {!isLoading && <Content 
+            foodItems= {filteredFoodItems}
+            editFood={editFood}
+            deleteFood={deleteFood}
+          />}
+        </>
+        
+        <Footer length={filteredFoodItems.length}/>
+      </div>
+    </ThemeProvider>
   );
 }
 
