@@ -11,14 +11,18 @@ import GlobalStyles from './GlobalStyles';
 
 function App (){
   const API_URL = 'http://localhost:5000/foods';
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState(()=>localStorage.getItem('theme') || 'dark')
   const [foodItems, setFoodItems] = useState([]);
   const [foodInput, setFoodInput] = useState('');
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   const toggleTheme = () =>{
-    setTheme((prev) => (prev ==='light'?'dark' : 'light'));
+    setTheme((prev) => {
+      const newTheme =  prev === 'light'? 'dark': 'light';
+      localStorage.setItem('theme', newTheme);
+      return newTheme;
+    });
   };
 
   useEffect(() => {
