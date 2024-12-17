@@ -28,6 +28,8 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     font-size: 0.9rem;
     width: 96px;
+    margin-left: auto;
+    margin-right: 20px;
     transition: background-color 0.3s ease;
   }
 

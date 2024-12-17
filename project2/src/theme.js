@@ -1,4 +1,7 @@
 export const lightTheme = {
+    navtext: '#000000',
+    navlinkhover: '#0077cc',
+    navlinkactive: '#004c99',
     background: '#f8f8f8',
     color: '#000000',
     buttonbackground: '#008a22',
@@ -9,6 +12,9 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
+    navtext: '#ffffff',
+    navlinkhover: '#66ccff',
+    navlinkactive: '#33aaff',
     background: '#2b2b2b',
     color: '#ffffff',
     buttonbackground: '#005e1f',

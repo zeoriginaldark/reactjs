@@ -1,21 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import {BrowserRouter as Router , Routes, Route, Link} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
 import { lightTheme, darkTheme } from './theme';
 import Header from './Header';
-import AddItem from './AddItem';
-import Content from './Content';
-import Footer from './Footer';
-import axios from 'axios';
-import SearchItem from './SearchItem';
 import GlobalStyles from './GlobalStyles';
+import Navbar from './NavBar';
+import HomePage from './HomePage';
+import ManagerUI from './ManagerUI';
+import ContactPage from './ContactPage';
 
 function App (){
-  const API_URL = 'http://localhost:5000/foods';
   const [theme, setTheme] = useState(()=>localStorage.getItem('theme') || 'dark')
-  const [foodItems, setFoodItems] = useState([]);
-  const [foodInput, setFoodInput] = useState('');
-  const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
 
   const toggleTheme = () =>{
     setTheme((prev) => {
@@ -25,132 +20,24 @@ function App (){
     });
   };
 
-  useEffect(() => {
-    const fetchItems = async() =>{
-      try {
-        axios
-        .get(API_URL)
-        .then((response) => {
-          if (response.data) {
-            setFoodItems(response.data);
-          }
-        })
-      } catch(error) {
-        console.error('Error fetching food items', error);
-      } finally{
-        setIsLoading(false);
-      } 
-    }
-    
-    setTimeout(() => {
-      (async()=> await fetchItems())();
-    }, 1500);
-  }, []);
-
-  const editFood = (id, newName) =>{
-    if(!newName.trim()){
-      console.error("Error:New name cannot be empty.");
-      return;
-    }
-
-    axios
-      .put(`${API_URL}/${id}`, { name: newName })
-      .then((response) => {
-        setFoodItems((prevItems) =>
-          prevItems.map((food) =>
-            food.id === id ? { ...food, name: response.data.name } : food
-          )
-        );
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error('Error editing food:', error.response.data);
-        } else {
-          console.error('Network error:', error);
-        }
-      });
-  };
-
-  const addFood = (e) => {
-    e.preventDefault();
-    if (foodInput.trim()) {
-      const isDuplicate = foodItems.some((item) => item.name.toLowerCase() === foodInput.trim().toLowerCase());
-      if (isDuplicate) {
-        console.error("Error: Duplicate food item. This item is already in the list.");
-        return;
-      }
-
-      console.log("Adding food", foodInput);
-      axios
-        .post(API_URL, { name: foodInput })
-        .then((response) => {
-          setFoodItems(prevItems => [...prevItems, response.data]); 
-          setFoodInput('');
-        })
-        .catch((error) => {
-          if (error.response) {
-            console.error('Error adding food:', error.response.data);
-          } else {
-            console.error('Network error:', error);
-          }
-        });
-    }else{
-      console.error('Error: Food input empty');
-    }
-  };
-
-  const deleteFood = (id) =>{
-    const foodToDel = foodItems.find((food)=> food.id=== id); 
-    console.log("Deleting food", foodToDel);
-
-    axios
-      .delete(`${API_URL}/${id}`)
-      .then(()=>{
-        setFoodItems((prevItems)=> prevItems.filter((food)=> food.id !== id));
-      })
-      .catch((error)=>{
-        if(error.response){
-          console.error('Error deleting food:', error.response.data);
-        }else{
-          console.error('Network error:', error);
-        }
-      });
-  };
-
-  const filteredFoodItems = search.trim()
-    ? foodItems.filter(
-      food=> food.name.toLowerCase().includes(search.toLowerCase())
-    )
-    : foodItems;
-
   return (
     <ThemeProvider theme={theme ==='light'? lightTheme: darkTheme}>
       <GlobalStyles />
-      <div className="App">
-        <Header title="FoodMgr" />
-        <button className='lightdarkbtn' onClick={toggleTheme}>
+      <div className='App'>
+        <Router>
+          <Header title="FoodMgr" />
+          <Navbar />
+          <button className='lightdarkbtn' onClick={toggleTheme}>
             Mode: {theme === 'light' ? 'Light' : 'Dark'}
-        </button>
-        <SearchItem 
-          search={search}
-          setSearch={setSearch}
-        />
-        <AddItem
-          foodInput={foodInput}
-          setFoodInput={setFoodInput}
-          addFood={addFood}
-        />
-        <>
-          {isLoading && <p>Loading food items...</p>}
-          {!isLoading && <Content 
-            foodItems= {filteredFoodItems}
-            editFood={editFood}
-            deleteFood={deleteFood}
-          />}
-        </>
-        
-        <Footer length={filteredFoodItems.length}/>
+          </button>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/manager" element={<ManagerUI />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </Router>
       </div>
+
     </ThemeProvider>
   );
 }
