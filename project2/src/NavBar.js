@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const StyledNav = styled.nav`
   color: ${({ theme }) => theme.navtext};
+  background: ${({ theme }) => theme.background};
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -11,6 +12,7 @@ const StyledNav = styled.nav`
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   .nav-links {
     display: flex;

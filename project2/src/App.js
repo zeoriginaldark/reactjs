@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BrowserRouter as Router , Routes, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router , Routes, Route} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
 import { lightTheme, darkTheme } from './theme';
 import Header from './Header';
