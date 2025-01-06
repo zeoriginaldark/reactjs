@@ -19,6 +19,8 @@ const StyledMain = styled.div`
     justify-content:space-between;
     align-items: center;
     padding: 10px;
+    flex-direction: column;
+    margin: 10px;
     margin-bottom: 10px;
     background-color: ${({ theme }) => theme.listbg};
     color: ${({ theme }) => theme.listtext};
@@ -61,7 +63,7 @@ const StyledMain = styled.div`
   }
 
   input[type="text"] {
-    width: 20%;
+    width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
@@ -102,6 +104,26 @@ const StyledMain = styled.div`
   .btngroup{
     display:flex;
     gap:10px;
+  }
+
+  .foodContent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .foodImage {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .foodName {
+    flex-grow: 1;
+    font-size: 1rem;
   }
 `
 
