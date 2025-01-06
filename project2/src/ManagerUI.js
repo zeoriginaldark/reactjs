@@ -5,10 +5,9 @@ import Footer from './Footer';
 import axios from 'axios';
 import SearchItem from './SearchItem';
 
-const ManagerUI = () => {
+const ManagerUI = ({foodItems, setFoodItems}) => {
   const API_URL = 'http://localhost:5000/foods';
   
-  const [foodItems, setFoodItems] = useState([]);
   const [foodInput, setFoodInput] = useState('');
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +32,7 @@ const ManagerUI = () => {
     setTimeout(() => {
       (async()=> await fetchItems())();
     }, 1500);
-  }, []);
+  }, [setFoodItems]);
 
   const editFood = (id, newName) =>{
     if(!newName.trim()){

@@ -2,7 +2,8 @@
   "foods": [
     {
       "name": "pizza",
-      "id": "50f8"
+      "id": "50f8",
+      "imageUrl": "/images/pizza.jpg"
     },
     {
       "id": "d43c",
