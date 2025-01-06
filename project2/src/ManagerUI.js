@@ -5,11 +5,12 @@ import Footer from './Footer';
 import axios from 'axios';
 import SearchItem from './SearchItem';
 
-const ManagerUI = ({foodItems, setFoodItems}) => {
+const ManagerUI = () => {
   const API_URL = 'http://localhost:5000/foods';
   
   const [foodInput, setFoodInput] = useState('');
   const [search, setSearch] = useState('');
+  const [foodItems, setFoodItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const StyledHomepage = styled.div`
   main {
@@ -24,6 +25,7 @@ const StyledHomepage = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    gap: 20px;
   }
 
   .carousel-item {
@@ -53,44 +55,71 @@ const StyledHomepage = styled.div`
   }
 `;
 
-const Homepage = ({ foodItems = [] }) => {
-  const [currentFood, setCurrentFood] = useState(null);
+const Homepage = () => {
+  const [currentItems, setCurrentItems] = useState([]);
+  const [foodItems, setFoodItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const currentItemsRef = useRef([]);
+
+  const API_URL = 'http://localhost:5000/foods';
+
+  useEffect(()=>{
+    const fetchFoodItems = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setFoodItems(response.data || []);
+      } catch (error) {
+        console.error('Error fetching food items:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFoodItems();
+  }, [])
 
   useEffect(() => {
     if (foodItems.length === 0) return;
 
-    const randomizeFood = () => {
-      const randomIndex = Math.floor(Math.random() * foodItems.length);
-      setCurrentFood(foodItems[randomIndex]);
+    const rotateItems = () => {
+      const remainingItems = foodItems.filter(item => !currentItemsRef.current.includes(item));
+      
+      if (remainingItems.length === 0) {
+        currentItemsRef.current = foodItems.sort(() => Math.random() - 0.5).slice(0, 3);
+      } else {
+        const shuffled = [...remainingItems].sort(() => Math.random() - 0.5);
+        currentItemsRef.current = shuffled.slice(0, 3);
+      }
+      setCurrentItems([...currentItemsRef.current]);
     };
 
-    randomizeFood();
-    const interval = setInterval(randomizeFood, 3000);
+    rotateItems();
+    const interval = setInterval(rotateItems, 2500);
 
     return () => clearInterval(interval);
   }, [foodItems]);
-
+  
   return (
     <StyledHomepage>
       <main>
         <h1>Welcome!</h1>
-        <p>
-          FoodMgr aims to provide a simple approach to manage food items.
-        </p>
+        <p>FoodMgr aims to provide a simple approach to manage food items.</p>
 
-        <div className="carousel">
-          {currentFood ? (
-            <div className="carousel-item">
-              <img
-                src={currentFood.imageUrl || '/images/default.png'}
-                alt={currentFood.name}
-              />
-              <h2>{currentFood.name}</h2>
-            </div>
-          ) : (
-            <p>Loading food items...</p>
-          )}
-        </div>
+        {isLoading ? (
+          <p>Loading food items...</p>
+        ) : (
+          <div className="carousel">
+            {currentItems.map((food) => (
+              <div key={food.id} className="carousel-item">
+                <img
+                  src={food.imageUrl || '/images/default.jpg'}
+                  alt={food.name}
+                />
+                <h2>{food.name}</h2>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </StyledHomepage>
   );
