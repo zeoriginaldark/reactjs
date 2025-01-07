@@ -46,10 +46,6 @@
       "id": "f4ad"
     },
     {
-      "id": "0aea",
-      "name": "beans"
-    },
-    {
       "id": "d311",
       "name": "beans on toast"
     },
@@ -76,6 +72,11 @@
     {
       "id": "fc6c",
       "name": "nachos"
+    },
+    {
+      "id": "e1fa",
+      "name": "mayonnaise ",
+      "imageUrl": "blob:http://localhost:3000/5f09fd18-d9c3-4cf0-b291-07d12b487fc3"
     }
   ]
 }

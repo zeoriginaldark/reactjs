@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import AddItem from './AddItem';
 import Content from './Content';
 import Footer from './Footer';
@@ -7,37 +7,46 @@ import SearchItem from './SearchItem';
 
 const ManagerUI = () => {
   const API_URL = 'http://localhost:5000/foods';
-  
-  const [foodInput, setFoodInput] = useState('');
+
   const [search, setSearch] = useState('');
   const [foodItems, setFoodItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchItems = async() =>{
+    const fetchItems = async () => {
       try {
-        axios
-        .get(API_URL)
-        .then((response) => {
-          if (response.data) {
-            setFoodItems(response.data);
-          }
-        })
-      } catch(error) {
+        const response = await axios.get(API_URL);
+        if (response.data) {
+          setFoodItems(response.data);
+        }
+      } catch (error) {
         console.error('Error fetching food items', error);
-      } finally{
+      } finally {
         setIsLoading(false);
-      } 
-    }
-    
-    setTimeout(() => {
-      (async()=> await fetchItems())();
-    }, 1500);
-  }, [setFoodItems]);
+      }
+    };
 
-  const editFood = (id, newName) =>{
-    if(!newName.trim()){
-      console.error("Error:New name cannot be empty.");
+    fetchItems();
+  }, []);
+
+  const addFood = (newFoodItem) => {
+    axios
+      .post(API_URL, newFoodItem)
+      .then((response) => {
+        setFoodItems((prevItems) => [...prevItems, response.data]);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error('Error adding food:', error.response.data);
+        } else {
+          console.error('Network error:', error);
+        }
+      });
+  };
+
+  const editFood = (id, newName) => {
+    if (!newName.trim()) {
+      console.error('Error: New name cannot be empty.');
       return;
     }
 
@@ -59,78 +68,42 @@ const ManagerUI = () => {
       });
   };
 
-  const addFood = (e) => {
-    e.preventDefault();
-    if (foodInput.trim()) {
-      const isDuplicate = foodItems.some((item) => item.name.toLowerCase() === foodInput.trim().toLowerCase());
-      if (isDuplicate) {
-        console.error("Error: Duplicate food item. This item is already in the list.");
-        return;
-      }
-
-      console.log("Adding food", foodInput);
-      axios
-        .post(API_URL, { name: foodInput })
-        .then((response) => {
-          setFoodItems(prevItems => [...prevItems, response.data]); 
-          setFoodInput('');
-        })
-        .catch((error) => {
-          if (error.response) {
-            console.error('Error adding food:', error.response.data);
-          } else {
-            console.error('Network error:', error);
-          }
-        });
-    }else{
-      console.error('Error: Food input empty');
-    }
-  };
-
-  const deleteFood = (id) =>{
-    const foodToDel = foodItems.find((food)=> food.id=== id); 
-    console.log("Deleting food", foodToDel);
-
+  const deleteFood = (id) => {
     axios
       .delete(`${API_URL}/${id}`)
-      .then(()=>{
-        setFoodItems((prevItems)=> prevItems.filter((food)=> food.id !== id));
+      .then(() => {
+        setFoodItems((prevItems) => prevItems.filter((food) => food.id !== id));
       })
-      .catch((error)=>{
-        if(error.response){
+      .catch((error) => {
+        if (error.response) {
           console.error('Error deleting food:', error.response.data);
-        }else{
+        } else {
           console.error('Network error:', error);
         }
       });
   };
 
   const filteredFoodItems = search.trim()
-    ? foodItems.filter(
-      food=> food.name.toLowerCase().includes(search.toLowerCase())
-    )
+    ? foodItems.filter((food) =>
+        food.name.toLowerCase().includes(search.toLowerCase())
+      )
     : foodItems;
-  
+
   return (
-    <div>
-      <SearchItem 
-        search={search}
-        setSearch={setSearch}
-      />
-      <AddItem
-        foodInput={foodInput}
-        setFoodInput={setFoodInput}
-        addFood={addFood}
-      />
+    <div id='mymgrui'>
+      <SearchItem search={search} setSearch={setSearch} />
+      <AddItem addFood={addFood} />
       <>
-        {isLoading && <p style={{padding:'20px'}}>Loading food items...</p>}
-        {!isLoading && <Content
-          foodItems= {filteredFoodItems}
-          editFood={editFood}
-          deleteFood={deleteFood}
-        />}
+        {isLoading && <p style={{ padding: '20px' }}>Loading food items...</p>}
+        {!isLoading && (
+          <Content
+            foodItems={filteredFoodItems}
+            editFood={editFood}
+            deleteFood={deleteFood}
+          />
+        )}
       </>
-      <Footer length={filteredFoodItems.length}/>
+      <Footer length={filteredFoodItems.length} />
     </div>
   );
 };

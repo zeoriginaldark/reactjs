@@ -9,7 +9,7 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: ${({ isModalOpen }) => (isModalOpen ? 'relative' : 'sticky')}; /* Change position when modal is open */
   top: 0;
   z-index: 1000;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -37,7 +37,7 @@ const StyledNav = styled.nav`
   }
 `;
 
-const Navbar = () => {
+const Navbar = ({ isModalOpen }) => {
   return (
     <StyledNav>
       <div className="nav-links">
