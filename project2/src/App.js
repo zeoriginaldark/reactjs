@@ -11,6 +11,7 @@ import ContactPage from './ContactPage';
 
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleTheme = () => {
     setTheme((prev) => {
@@ -26,7 +27,7 @@ function App() {
       <div id="myapp" className="App">
         <Router>
           <Header title="FoodMgr" />
-          <Navbar />
+          <Navbar $isModalOpen={isModalOpen} />
           <button className="lightdarkbtn" onClick={toggleTheme}>
             Mode: {theme === 'light' ? 'Light' : 'Dark'}
           </button>
@@ -35,7 +36,7 @@ function App() {
             <Route
               path="/manager"
               element={
-                <ManagerUI />
+                <ManagerUI isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
               }
             />
             <Route path="/contact" element={<ContactPage />} />

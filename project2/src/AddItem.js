@@ -36,8 +36,7 @@ const StyledForm = styled.div`
   }
 `;
 
-const AddItem = ({ addFood }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
   const [foodName, setFoodName] = useState('');
   const [imageMethod, setImageMethod] = useState('local');
   const [imgUrl, setimgUrl] = useState('');
@@ -120,6 +119,7 @@ const AddItem = ({ addFood }) => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         ariaHideApp={false}
+        style={{content:{backgroundColor: 'transparent'}}}
       >
         <ModalStyles>
           <div className="modalContent">

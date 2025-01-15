@@ -5,7 +5,7 @@ import Footer from './Footer';
 import axios from 'axios';
 import SearchItem from './SearchItem';
 
-const ManagerUI = () => {
+const ManagerUI = ({ isModalOpen, setIsModalOpen }) => {
   const API_URL = 'http://172.18.14.171:5000/foods';
 
   const [search, setSearch] = useState('');
@@ -92,7 +92,7 @@ const ManagerUI = () => {
   return (
     <div id='mymgrui'>
       <SearchItem search={search} setSearch={setSearch} />
-      <AddItem addFood={addFood} />
+      <AddItem addFood={addFood} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
       <>
         {isLoading && <p style={{ padding: '20px' }}>Loading food items...</p>}
         {!isLoading && (

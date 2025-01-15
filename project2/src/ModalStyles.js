@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ModalStyles = styled.div`
-  background-color: transparent;
   position: fixed;
   top: 0;
   left: 0;

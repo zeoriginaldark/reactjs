@@ -9,9 +9,8 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: ${({ isModalOpen }) => (isModalOpen ? 'relative' : 'sticky')}; /* Change position when modal is open */
-  top: 0;
-  z-index: 1000;
+  position: ${({ $isModalOpen }) => ($isModalOpen ? 'relative' : 'sticky')}; /* Change position when modal is open */
+  top: ${({ $isModalOpen }) => ($isModalOpen ? '0' : 'initial')}; /* Adjust top position */
   transition: background-color 0.3s ease, color 0.3s ease;
 
   .nav-links {
@@ -37,9 +36,9 @@ const StyledNav = styled.nav`
   }
 `;
 
-const Navbar = ({ isModalOpen }) => {
+const Navbar = ({ $isModalOpen }) => {
   return (
-    <StyledNav>
+    <StyledNav $isModalOpen={$isModalOpen}>
       <div className="nav-links">
         <NavLink to="/" end>
           Home
