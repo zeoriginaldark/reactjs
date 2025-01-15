@@ -6,7 +6,7 @@ import axios from 'axios';
 import SearchItem from './SearchItem';
 
 const ManagerUI = () => {
-  const API_URL = 'http://localhost:5000/foods';
+  const API_URL = 'http://172.18.14.171:5000/foods';
 
   const [search, setSearch] = useState('');
   const [foodItems, setFoodItems] = useState([]);

@@ -40,31 +40,71 @@ const AddItem = ({ addFood }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [foodName, setFoodName] = useState('');
   const [imageMethod, setImageMethod] = useState('local');
-  const [imgUrl, setimgUrl] = useState(''); 
-  const [imageFile, setImageFile] = useState('');
+  const [imgUrl, setimgUrl] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
-  const handleAddFood = (e) => {
+  const uploadFileToImgur = async (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
+  
+    const clientId = process.env.REACT_APP_IMGUR_CLIENT_ID;
+    
+    try {
+      const response = await fetch('https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: {
+          Authorization: `Client-ID ${clientId}`,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        return data.data.link;
+      } else {
+        throw new Error('Upload failed: ' + (data.data?.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error uploading to Imgur:', error);
+      throw error;
+    }
+  };
+
+  const handleAddFood = async (e) => {
     e.preventDefault();
     if (!foodName.trim()) {
       console.error('Error: Food name is required');
       return;
     }
 
-    const imageUrl = imageMethod === 'url' ? imgUrl : URL.createObjectURL(imageFile);
-    addFood({ name: foodName, imageUrl });
+    try {
+      setUploading(true);
+      let imageUrl = imgUrl;
+      if (imageMethod === 'local' && imageFile) {
+        imageUrl = await uploadFileToImgur(imageFile);
+      }
 
-    setFoodName('');
-    setimgUrl('');
-    setImageFile(null);
-    setIsModalOpen(false);
+      addFood({ name: foodName, imageUrl });
+
+      setFoodName('');
+      setimgUrl('');
+      setImageFile(null);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Failed to add food:', error);
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleImageMethodChange = (e) => {
     const newMethod = e.target.value;
     setImageMethod(newMethod);
-    
+
     if (newMethod === 'url') {
-      setImageFile(''); 
+      setImageFile(null);
     } else {
       setimgUrl('');
     }
@@ -82,8 +122,8 @@ const AddItem = ({ addFood }) => {
         ariaHideApp={false}
       >
         <ModalStyles>
-          <div className='modalContent'>
-            <div className='modalHeader'>
+          <div className="modalContent">
+            <div className="modalHeader">
               <h3>Add New Food Item</h3>
             </div>
             <form onSubmit={handleAddFood}>
@@ -91,7 +131,7 @@ const AddItem = ({ addFood }) => {
                 <label>
                   Food Name:
                   <input
-                    id='foodinput'
+                    id="foodinput"
                     type="text"
                     value={foodName}
                     onChange={(e) => setFoodName(e.target.value)}
@@ -103,7 +143,7 @@ const AddItem = ({ addFood }) => {
                 <label>
                   Image Source:
                   <select
-                    id='imgsrc'
+                    id="imgsrc"
                     value={imageMethod}
                     onChange={handleImageMethodChange}
                   >
@@ -113,19 +153,16 @@ const AddItem = ({ addFood }) => {
                 </label>
               </div>
               <div>
-                {imageMethod === 'local' ? 
-                (
+                {imageMethod === 'local' ? (
                   <input
-                    id='imgfileinput'
+                    id="imgfileinput"
                     type="file"
                     accept="image/*"
-                    value={imageFile}
                     onChange={(e) => setImageFile(e.target.files[0])}
                   />
-                )
-                : (
+                ) : (
                   <input
-                    id='imgurlinput'
+                    id="imgurlinput"
                     type="text"
                     placeholder="Enter Image URL"
                     value={imgUrl}
@@ -133,9 +170,16 @@ const AddItem = ({ addFood }) => {
                   />
                 )}
               </div>
+              {uploading && <p>Uploading image, please wait...</p>}
               <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
-                <button className='addbtn' type="submit">Add Food</button>
-                <button className='closebtn' type="button" onClick={() => setIsModalOpen(false)}>
+                <button className="addbtn" type="submit" disabled={uploading}>
+                  {uploading ? 'Adding...' : 'Add Food'}
+                </button>
+                <button
+                  className="closebtn"
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                >
                   Cancel
                 </button>
               </div>

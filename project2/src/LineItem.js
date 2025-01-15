@@ -19,11 +19,13 @@ const LineItem = ({ food, deleteFood, editFood }) => {
       {isEditing ? (
         <>
           <input
+            name="newname"
             type="text"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
           />
           <input
+            name="newimg"
             type="text"
             value={newImg}
             onChange={(e) => setNewImg(e.target.value)}
