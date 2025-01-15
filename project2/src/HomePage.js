@@ -87,7 +87,7 @@ const Homepage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const currentItemsRef = useRef([]);
 
-  const API_URL = 'http://localhost:5000/foods';
+  const API_URL = 'http://172.18.14.171:5000/foods';
 
   useEffect(()=>{
     const fetchFoodItems = async () => {

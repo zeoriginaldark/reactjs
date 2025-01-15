@@ -70,13 +70,14 @@
       "name": "chowmein"
     },
     {
-      "id": "fc6c",
-      "name": "nachos"
-    },
-    {
       "id": "59f8",
       "name": "mayonnaise ",
       "imageUrl": "https://i.imgur.com/2b8VdWf.jpeg"
+    },
+    {
+      "id": "eea8",
+      "name": "nachos",
+      "imageUrl": "https://i.imgur.com/mrT8e1O.jpeg"
     }
   ]
 }
