@@ -44,18 +44,18 @@ const ManagerUI = ({ isModalOpen, setIsModalOpen }) => {
       });
   };
 
-  const editFood = (id, newName) => {
+  const editFood = (id, newName, newImageUrl) => {
     if (!newName.trim()) {
       console.error('Error: New name cannot be empty.');
       return;
     }
-
+  
     axios
-      .put(`${API_URL}/${id}`, { name: newName })
+      .put(`${API_URL}/${id}`, { name: newName, imageUrl: newImageUrl }) 
       .then((response) => {
         setFoodItems((prevItems) =>
           prevItems.map((food) =>
-            food.id === id ? { ...food, name: response.data.name } : food
+            food.id === id ? { ...food, name: response.data.name, imageUrl: response.data.imageUrl } : food
           )
         );
       })

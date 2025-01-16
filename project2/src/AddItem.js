@@ -39,7 +39,7 @@ const StyledForm = styled.div`
 const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
   const [foodName, setFoodName] = useState('');
   const [imageMethod, setImageMethod] = useState('local');
-  const [imgUrl, setimgUrl] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -88,7 +88,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
       addFood({ name: foodName, imageUrl });
 
       setFoodName('');
-      setimgUrl('');
+      setImgUrl('');
       setImageFile(null);
       setIsModalOpen(false);
     } catch (error) {
@@ -105,7 +105,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
     if (newMethod === 'url') {
       setImageFile(null);
     } else {
-      setimgUrl('');
+      setImgUrl('');
     }
   };
 
@@ -166,7 +166,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
                     type="text"
                     placeholder="Enter Image URL"
                     value={imgUrl}
-                    onChange={(e) => setimgUrl(e.target.value)}
+                    onChange={(e) => setImgUrl(e.target.value)}
                   />
                 )}
               </div>
