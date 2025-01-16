@@ -18,6 +18,13 @@ const LineItem = ({ food, deleteFood, editFood }) => {
     setIsEditing(false);
   };
 
+  const handleDelete = () =>{
+    const confirmDelete = window.confirm(`Are you sure you want to delete "${food.name}"?`);
+    if (confirmDelete) {
+      deleteFood(food.id);
+    }
+  };
+
   return (
     <li>
       {isEditing ? (
@@ -54,7 +61,7 @@ const LineItem = ({ food, deleteFood, editFood }) => {
           </div>
           <div className='btnGroup'>
             <button className='editbtn' onClick={handleEditToggle}>Edit</button>
-            <button className='deletebtn' onClick={() => deleteFood(food.id)}>Delete</button>
+            <button className='deletebtn' onClick={handleDelete}>Delete</button>
           </div>
         </>
       )}
