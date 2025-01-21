@@ -1,23 +1,32 @@
 import React from 'react';
 import LineItem from './LineItem';
+import styled from 'styled-components';
 
-const Itemlist = ({foodItems, deleteFood, editFood}) => {
+const StyledList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+`;
+
+const Itemlist = ({ foodItems, deleteFood, editFood }) => {
   return (
-    <ul>
+    <StyledList>
       {Array.isArray(foodItems) && foodItems.length > 0 ? (
         foodItems.map((food) => (
-            <LineItem
-                key={food.id} 
-                food={food}
-                deleteFood={deleteFood}
-                editFood={editFood}
-            />
+          <LineItem
+            key={food.id}
+            food={food}
+            deleteFood={deleteFood}
+            editFood={editFood}
+          />
         ))
       ) : (
-        <p style={{marginTop: '2rem'}}>List is empty!</p>
+        <p style={{ marginTop: '2rem', gridColumn: '1 / -1' }}>List is empty!</p>
       )}
-    </ul>
-  )
-}
+    </StyledList>
+  );
+};
 
 export default Itemlist;
