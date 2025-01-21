@@ -126,7 +126,7 @@ const ContactPage = () => {
     <StyledContactPage>
       <main>
         <p>
-          We'd love to hear from you! You can reach out to us through the contact form of this page, or by phone, email, or social media.
+          We'd love to hear from you! You can reach out to us via the given methods.
         </p>
         <div className="form-container">
           <div className="contact-buttons">

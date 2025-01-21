@@ -91,6 +91,7 @@ const ManagerUI = ({ isModalOpen, setIsModalOpen }) => {
 
   return (
     <div id='mymgrui'>
+      <div id='portal'></div>
       <SearchItem search={search} setSearch={setSearch} />
       <AddItem addFood={addFood} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
       <>

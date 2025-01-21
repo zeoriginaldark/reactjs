@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import ConfirmationModal from './ConfirmationM'; // Import the modal
 
 const LineItem = ({ food, deleteFood, editFood }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(food.name);
   const [newImg, setNewImg] = useState(food.imageUrl || '');
+  
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false); // State for confirmation modal
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
@@ -18,11 +21,17 @@ const LineItem = ({ food, deleteFood, editFood }) => {
     setIsEditing(false);
   };
 
-  const handleDelete = () =>{
-    const confirmDelete = window.confirm(`Are you sure you want to delete "${food.name}"?`);
-    if (confirmDelete) {
-      deleteFood(food.id);
-    }
+  const handleDelete = () => {
+    setIsConfirmingDelete(true); // Show confirmation modal
+  };
+
+  const confirmDelete = () => {
+    deleteFood(food.id); // Call delete function
+    setIsConfirmingDelete(false); // Close confirmation modal
+  };
+
+  const cancelDelete = () => {
+    setIsConfirmingDelete(false); // Close confirmation modal
   };
 
   return (
@@ -64,6 +73,15 @@ const LineItem = ({ food, deleteFood, editFood }) => {
             <button className='deletebtn' onClick={handleDelete}>Delete</button>
           </div>
         </>
+      )}
+
+      {/* Confirmation Modal */}
+      {isConfirmingDelete && (
+        <ConfirmationModal
+          message={`Are you sure you want to delete "${food.name}"?`}
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
       )}
     </li>
   );
