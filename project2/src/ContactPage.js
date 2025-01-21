@@ -86,7 +86,7 @@ const StyledContactPage = styled.div`
 `;
 
 const ContactPage = () => {
-  const [activeTab, setActiveTab] = useState('email'); // Default to 'email'
+  const [activeTab, setActiveTab] = useState('email');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -101,7 +101,7 @@ const ContactPage = () => {
         return (
           <div className="contact-content">
             <h2>Contact Information</h2>
-            <p>Phone: +977 xxx xxxx xxx</p>
+            <p>Phone: +977 x xxxxxxx</p>
             <p>Email: support@brainfoodmgr.com</p>
             <p>Socials: @brainfoodmgr on Twitter, Instagram, and Facebook</p>
           </div>
@@ -126,7 +126,7 @@ const ContactPage = () => {
     <StyledContactPage>
       <main>
         <p>
-          We're here to help, and we'd love to hear from you! You can reach out to us through the contact form of this page, or by phone, email, or social media.
+          We'd love to hear from you! You can reach out to us through the contact form of this page, or by phone, email, or social media.
         </p>
         <div className="form-container">
           <div className="contact-buttons">

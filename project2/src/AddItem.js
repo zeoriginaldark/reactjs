@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 import { ModalStyles } from './ModalStyles';
@@ -39,16 +39,17 @@ const StyledForm = styled.div`
 const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
   const [foodName, setFoodName] = useState('');
   const [imageMethod, setImageMethod] = useState('local');
-  const [imgUrl, setImgUrl] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [uploading, setUploading] = useState(false);
+  
+  const imgUrlRef = useRef('');
 
   const uploadFileToImgur = async (file) => {
     const formData = new FormData();
     formData.append('image', file);
   
     const clientId = process.env.REACT_APP_IMGUR_CLIENT_ID;
-    
+
     try {
       const response = await fetch('https://api.imgur.com/3/image', {
         method: 'POST',
@@ -73,6 +74,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
 
   const handleAddFood = async (e) => {
     e.preventDefault();
+    
     if (!foodName.trim()) {
       console.error('Error: Food name is required');
       return;
@@ -80,7 +82,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
 
     try {
       setUploading(true);
-      let imageUrl = imgUrl;
+      let imageUrl = imgUrlRef.current;
       if (imageMethod === 'local' && imageFile) {
         imageUrl = await uploadFileToImgur(imageFile);
       }
@@ -88,9 +90,10 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
       addFood({ name: foodName, imageUrl });
 
       setFoodName('');
-      setImgUrl('');
+      imgUrlRef.current = '';
       setImageFile(null);
       setIsModalOpen(false);
+      
     } catch (error) {
       console.error('Failed to add food:', error);
     } finally {
@@ -105,7 +108,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
     if (newMethod === 'url') {
       setImageFile(null);
     } else {
-      setImgUrl('');
+      imgUrlRef.current = '';
     }
   };
 
@@ -119,7 +122,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         ariaHideApp={false}
-        style={{content:{backgroundColor: 'transparent'}}}
+        style={{ content:{ backgroundColor: 'transparent' }}}
       >
         <ModalStyles>
           <div className="modalContent">
@@ -165,8 +168,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
                     id="imgurlinput"
                     type="text"
                     placeholder="Enter Image URL"
-                    value={imgUrl}
-                    onChange={(e) => setImgUrl(e.target.value)}
+                    ref={imgUrlRef}
                   />
                 )}
               </div>

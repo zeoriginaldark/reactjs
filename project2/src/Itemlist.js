@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 1rem;
   list-style: none;
   padding: 0;
