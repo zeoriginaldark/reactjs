@@ -41,19 +41,17 @@ const StyledHomepage = styled.div`
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 150px;
     height: 175px;
-    flex: 1;
 
-    opacity: 1;
+    opacity: 1; 
     transition: opacity 0.5s ease-in-out;
   }
 
-  .carousel-item.hidden {
+  .carousel-item.hidden1 {
     opacity: 0;
   }
 
-  .carousel-item.fade-in {
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
+  .carousel-item.hidden2 {
+    opacity: 0;
   }
 
   .carousel-item img {
@@ -89,81 +87,89 @@ const StyledHomepage = styled.div`
    }
 `;
 
-
 const Homepage = () => {
-  const [currentItems, setCurrentItems] = useState([]);
-  const [foodItems, setFoodItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [fadeOut, setFadeOut] = useState(false);
-  const currentItemsRef = useRef([]);
+   const [currentItems, setCurrentItems] = useState([]);
+   const [foodItems, setFoodItems] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
+   const [fadeOut, setFadeOut] = useState(false);
+   const [fadeIn, setFadeIn] = useState(false);
+   const currentItemsRef = useRef([]);
 
-  const API_URL = 'http://172.18.14.171:5000/foods';
+   const API_URL = 'http://172.18.14.171:5000/foods';
 
-  useEffect(() => {
-     const fetchFoodItems = async () => {
-        try {
-           const response = await axios.get(API_URL);
-           setFoodItems(response.data || []);
-        } catch (error) {
-           console.error('Error fetching food items:', error);
-        } finally {
-           setIsLoading(false);
-        }
-     };
+   useEffect(() => {
+      const fetchFoodItems = async () => {
+         try {
+            const response = await axios.get(API_URL);
+            setFoodItems(response.data || []);
+         } catch (error) {
+            console.error('Error fetching food items:', error);
+         } finally {
+            setIsLoading(false);
+         }
+      };
 
-     fetchFoodItems();
-  }, [])
+      fetchFoodItems();
+   }, []);
 
-  useEffect(() => {
-     if (foodItems.length === 0) return;
+   useEffect(() => {
+      if (foodItems.length === 0) return;
 
-     const rotateItems = () => {
-        setFadeOut(true);
+      const rotateItems = () => {
+         setFadeOut(true);
 
-        setTimeout(() => {
-           const remainingItems = foodItems.filter(item => !currentItemsRef.current.includes(item));
+         setTimeout(() => {
+            const remainingItems = foodItems.filter(item => !currentItemsRef.current.includes(item));
 
-           if (remainingItems.length === 0) {
-              currentItemsRef.current = foodItems.sort(() => Math.random() - 0.5).slice(0, 3);
-           } else {
-              const shuffled = [...remainingItems].sort(() => Math.random() - 0.5);
-              currentItemsRef.current = shuffled.slice(0, 3);
-           }
-           setFadeOut(false);
-           setCurrentItems([...currentItemsRef.current]);
-        }, 500);
-     };
+            if (remainingItems.length === 0) {
+               currentItemsRef.current = foodItems.sort(() => Math.random() - 0.5).slice(0, 3);
+            } else {
+               const shuffled = [...remainingItems].sort(() => Math.random() - 0.5);
+               currentItemsRef.current = shuffled.slice(0, 3);
+            }
 
-     rotateItems();
-     const interval = setInterval(rotateItems, 2500);
+            setCurrentItems([...currentItemsRef.current]);
 
-     return () => clearInterval(interval);
-  }, [foodItems]);
+            setFadeOut(false);
+            setFadeIn(true);
 
-  return (
-     <StyledHomepage>
-        <main>
-           <h1>Welcome!</h1>
-           <p>FoodMgr aims to provide a simple approach to manage food items.</p>
+            setTimeout(() => setFadeIn(false), 500)
+         }, 500); 
+      };
 
-           {isLoading ? (
-              <p>Loading food items...</p>
-           ) : (
-              <div className="carousel">
-                 {currentItems.map((food) => (
-                    <div key={food.id} className={`carousel-item ${fadeOut ? 'hidden' : 'fade-in'}`}>
-                       <img
-                          src={food.imageUrl || '/images/default.jpg'}
-                          alt={food.name}
-                       />
-                       <h2>{food.name}</h2>
-                    </div>
-                 ))}
-              </div>
-           )}
-        </main>
-     </StyledHomepage>
-  );
+      rotateItems();
+      const interval = setInterval(rotateItems, 3000);
+
+      return () => clearInterval(interval);
+   }, [foodItems]);
+
+   return (
+      <StyledHomepage>
+         <main>
+            <h1>Welcome!</h1>
+            <p>FoodMgr aims to provide a simple approach to manage food items.</p>
+
+            {isLoading ? (
+               <p>Loading food items...</p>
+            ) : (
+               <div className="carousel">
+                  {currentItems.map((food) => (
+                     <div
+                        key={food.id}
+                        className={`carousel-item ${fadeOut ? 'hidden1' : ''} ${fadeIn ? 'hidden2' : ''}`}
+                     >
+                        <img
+                           src={food.imageUrl || '/images/default.jpg'}
+                           alt={food.name}
+                        />
+                        <h2>{food.name}</h2>
+                     </div>
+                  ))}
+               </div>
+            )}
+         </main>
+      </StyledHomepage>
+   );
 };
 
 export default Homepage;
