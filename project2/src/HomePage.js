@@ -40,7 +40,7 @@ const StyledHomepage = styled.div`
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 150px;
-    height: 175px;
+    height: 185px;
 
     opacity: 1; 
     transition: opacity 0.5s ease-in-out;
@@ -78,7 +78,8 @@ const StyledHomepage = styled.div`
      }
 
      .carousel-item h2 {
-       font-size: 1rem; 
+       font-size: 1rem;
+       margin-bottom: 5px; 
      }
 
      .carousel-item img {
@@ -163,6 +164,7 @@ const Homepage = () => {
                            alt={food.name}
                         />
                         <h2>{food.name}</h2>
+                        <h5>{food.price}</h5>
                      </div>
                   ))}
                </div>
