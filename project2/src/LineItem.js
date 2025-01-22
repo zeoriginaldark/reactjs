@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import ConfirmationModal from './ConfirmationM'; // Import the modal
+import ConfirmationModal from './ConfirmationM';
 
 const LineItem = ({ food, deleteFood, editFood }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(food.name);
   const [newImg, setNewImg] = useState(food.imageUrl || '');
   
-  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false); // State for confirmation modal
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
@@ -22,16 +22,16 @@ const LineItem = ({ food, deleteFood, editFood }) => {
   };
 
   const handleDelete = () => {
-    setIsConfirmingDelete(true); // Show confirmation modal
+    setIsConfirmingDelete(true);
   };
 
   const confirmDelete = () => {
-    deleteFood(food.id); // Call delete function
-    setIsConfirmingDelete(false); // Close confirmation modal
+    deleteFood(food.id);
+    setIsConfirmingDelete(false);
   };
 
   const cancelDelete = () => {
-    setIsConfirmingDelete(false); // Close confirmation modal
+    setIsConfirmingDelete(false);
   };
 
   return (
@@ -53,13 +53,11 @@ const LineItem = ({ food, deleteFood, editFood }) => {
             placeholder='Food image location'
             onChange={(e) => setNewImg(e.target.value)}
           />
-          <div className='btnGroup'>
-            <button type='submit' className='savebtn'>Save</button>
-            <button type='button' className='cancelbtn' onClick={handleEditToggle}>Cancel</button>
-          </div>
+          <button type='submit' className='greenbtn'>Save</button>
+          <button type='button' className='redbtn' onClick={handleEditToggle}>Cancel</button>
         </form>
       ) : (
-        <>
+        <div>
           <div className='foodContent'>
             <img
               src={food.imageUrl || '/images/default.jpg'}
@@ -68,14 +66,11 @@ const LineItem = ({ food, deleteFood, editFood }) => {
             />
             <span className='foodName'>{food.name}</span>
           </div>
-          <div className='btnGroup'>
-            <button className='editbtn' onClick={handleEditToggle}>Edit</button>
-            <button className='deletebtn' onClick={handleDelete}>Delete</button>
-          </div>
-        </>
+          <button className='greenbtn' onClick={handleEditToggle}>Edit</button>
+          <button className='redbtn' onClick={handleDelete}>Delete</button>
+        </div>
       )}
 
-      {/* Confirmation Modal */}
       {isConfirmingDelete && (
         <ConfirmationModal
           message={`Are you sure you want to delete "${food.name}"?`}

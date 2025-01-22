@@ -8,7 +8,7 @@ const Overlay = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,10 +20,41 @@ const ModalContainer = styled.div`
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
-`;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
 
-const Button = styled.button`
-    margin: 5px;
+    .addbtn {
+    background-color: #008a22;
+    color: ${({ theme }) => theme.buttonText};
+    padding: 5px 10px;
+    border: none;
+    margin-left: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .addbtn:hover {
+    background-color: #005e1f;
+  }
+
+  .closebtn {
+    background-color: #ff0000;
+    color: ${({ theme }) => theme.buttonText};
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .closebtn:hover {
+    background-color: #960a0a;
+  }
 `;
 
 const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
@@ -31,8 +62,8 @@ const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
     <Overlay>
         <ModalContainer>
             <p>{message}</p>
-            <Button onClick={onConfirm}>Yes</Button>
-            <Button onClick={onCancel}>No</Button>
+            <button className='addbtn' onClick={onConfirm}>Yes</button>
+            <button className='closebtn' onClick={onCancel}>No</button>
         </ModalContainer>
     </Overlay>,
     document.getElementById('portal')

@@ -17,11 +17,9 @@ const StyledMain = styled.div`
   li {
     display: flex;
     justify-content:space-between;
-    align-items: center;
-    padding: 10px;
+    height: 146px;
+    padding:10px;
     flex-direction: column;
-    margin: 10px;
-    margin-bottom: 10px;
     background-color: ${({ theme }) => theme.listbg};
     color: ${({ theme }) => theme.listtext};
     border-radius: 5px;
@@ -32,7 +30,11 @@ const StyledMain = styled.div`
     background-color: ${({ theme }) => theme.listbghover};
   }
 
-  .deletebtn{
+  button{
+    margin-right: 10px;
+  }
+
+  .redbtn{
     background-color: #ff0000;
     border: none;
     color: white;
@@ -43,11 +45,11 @@ const StyledMain = styled.div`
     transition: background-color 0.3s ease;
   }
 
-  .deletebtn:hover{
+  .redbtn:hover{
     background-color: #960a0a;
   }
 
-  .editbtn {
+  .greenbtn {
     background-color: #008a22;
     border: none;
     color: white;
@@ -58,7 +60,7 @@ const StyledMain = styled.div`
     transition: background-color 0.3s ease;
   }
     
-  .editbtn:hover {
+  .greenbtn:hover {
     background-color: #005e1f;
   }
 
@@ -69,41 +71,6 @@ const StyledMain = styled.div`
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
-  }
-
-  .savebtn {
-    background-color: #008a22;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-  }
-    
-  .savebtn:hover {
-    background-color: #005e1f;
-  }
-
-  .cancelbtn{
-    background-color: #ff0000;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-  }
-
-  .cancelbtn:hover{
-    background-color: #960a0a;
-  }
-
-  .btngroup{
-    display:flex;
-    gap:10px;
   }
 
   .foodContent {
@@ -119,6 +86,7 @@ const StyledMain = styled.div`
     height: 50px;
     object-fit: cover;
     border-radius: 5px;
+    margin-bottom:10px;
   }
 
   .foodName {
@@ -126,7 +94,6 @@ const StyledMain = styled.div`
     font-size: 1rem;
   }
 `
-
 
 const Content = ({ foodItems, deleteFood, editFood }) => {
   return (

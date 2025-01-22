@@ -27,7 +27,7 @@ const StyledForm = styled.div`
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1rem;
     transition: background-color 0.3s ease;
   }
 
