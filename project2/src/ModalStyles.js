@@ -60,7 +60,7 @@ export const ModalStyles = styled.div`
     font-size: 1rem;
   }
 
-  .closebtn {
+  .redbtn {
     background-color: #ff0000;
     color: ${({ theme }) => theme.buttonText};
     padding: 5px 10px;
@@ -71,11 +71,11 @@ export const ModalStyles = styled.div`
     transition: background-color 0.3s ease;
   }
 
-  .closebtn:hover {
+  .redbtn:hover {
     background-color: #960a0a;
   }
 
-  .addbtn {
+  .greenbtn {
     background-color: #008a22;
     color: ${({ theme }) => theme.buttonText};
     padding: 5px 10px;
@@ -87,7 +87,7 @@ export const ModalStyles = styled.div`
     transition: background-color 0.3s ease;
   }
 
-  .addbtn:hover {
+  .greenbtn:hover {
     background-color: #005e1f;
   }
 `;
