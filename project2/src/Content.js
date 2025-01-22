@@ -103,12 +103,12 @@ const StyledMain = styled.div`
   }
 
   .foodPrice {
-    flex-grow: 1;
+    margin-left: 20px;
     font-size: 1rem;
   }
 `
 
-const Content = ({ foodItems, deleteFood, editFood }) => {
+const Content = ({ foodItems, deleteFood, editFood, editingId, setEditingId }) => {
   return (
     <StyledMain>
       <main>
@@ -117,6 +117,8 @@ const Content = ({ foodItems, deleteFood, editFood }) => {
             foodItems={foodItems}
             deleteFood={deleteFood}
             editFood={editFood}
+            editingId={editingId}
+            setEditingId={setEditingId}
           />
         </div>
       </main>

@@ -11,6 +11,7 @@ const ManagerUI = ({ isModalOpen, setIsModalOpen }) => {
   const [search, setSearch] = useState('');
   const [foodItems, setFoodItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -58,6 +59,7 @@ const ManagerUI = ({ isModalOpen, setIsModalOpen }) => {
             food.id === id ? { ...food, name: response.data.name, imageUrl: response.data.imageUrl, price: response.data.price } : food
           )
         );
+        setEditingId(null);
       })
       .catch((error) => {
         if (error.response) {
@@ -101,6 +103,8 @@ const ManagerUI = ({ isModalOpen, setIsModalOpen }) => {
             foodItems={filteredFoodItems}
             editFood={editFood}
             deleteFood={deleteFood}
+            editingId={editingId}
+            setEditingId={setEditingId}
           />
         )}
       </>

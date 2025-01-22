@@ -1,38 +1,24 @@
-import React, { useState } from 'react';
-import ConfirmationModal from './ConfirmationM';
+import {React, useState} from 'react';
 
-const LineItem = ({ food, deleteFood, editFood }) => {
-  const [isEditing, setIsEditing] = useState(false);
+const LineItem = ({
+  food,
+  deleteFood,
+  editFood,
+  isEditing,
+  disableInteraction,
+  onEdit,
+  onCancelEdit,
+}) => {
   const [newName, setNewName] = useState(food.name);
-  const [newPrice, setNewPrice] = useState(food.price || 0);
+  const [newPrice, setNewPrice] = useState(food.price || '');
   const [newImg, setNewImg] = useState(food.imageUrl || '');
-  
-  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
-
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-  };
 
   const handleSave = (e) => {
     e.preventDefault();
     const finalImgUrl = newImg.trim() === '' ? '/images/default.jpg' : newImg;
 
-    editFood(food.id, newName, finalImgUrl, newPrice);
-    setNewImg(finalImgUrl);
-    setIsEditing(false);
-  };
-
-  const handleDelete = () => {
-    setIsConfirmingDelete(true);
-  };
-
-  const confirmDelete = () => {
-    deleteFood(food.id);
-    setIsConfirmingDelete(false);
-  };
-
-  const cancelDelete = () => {
-    setIsConfirmingDelete(false);
+    editFood(newName.trim(), finalImgUrl.trim(), parseFloat(newPrice));
+    onCancelEdit();
   };
 
   return (
@@ -43,49 +29,48 @@ const LineItem = ({ food, deleteFood, editFood }) => {
             name="newname"
             type="text"
             value={newName}
-            placeholder='Food name'
+            placeholder="Food name"
             onChange={(e) => setNewName(e.target.value)}
+            disabled={disableInteraction}
             required
           />
           <input
             name="newprice"
             type="number"
             value={newPrice}
-            placeholder='Food price'
+            placeholder="Food price"
             onChange={(e) => setNewPrice(e.target.value)}
+            disabled={disableInteraction}
           />
           <input
             name="newimg"
             type="text"
             value={newImg}
-            placeholder='Food image location'
+            placeholder="Food image location"
             onChange={(e) => setNewImg(e.target.value)}
+            disabled={disableInteraction}
           />
-          <button type='submit' className='greenbtn'>Save</button>
-          <button type='button' className='redbtn' onClick={handleEditToggle}>Cancel</button>
+          <button type="submit" className="greenbtn" disabled={disableInteraction}>
+            Save
+          </button>
+          <button type="button" className="redbtn" onClick={onCancelEdit}>
+            Cancel
+          </button>
         </form>
       ) : (
         <div>
-          <div className='foodContent'>
-            <img
-              src={food.imageUrl || '/images/default.jpg'}
-              alt={food.name}
-              className='foodImage'
-            />
-            <span className='foodName'>{food.name}</span>
-            <span className='foodPrice'>{food.price}</span>
+          <div className="foodContent">
+            <img src={food.imageUrl || '/images/default.jpg'} alt={food.name} className="foodImage" />
+            <span className="foodName">{food.name}</span>
+            <span className="foodPrice">{food.price}</span>
           </div>
-          <button className='greenbtn' onClick={handleEditToggle}>Edit</button>
-          <button className='redbtn' onClick={handleDelete}>Delete</button>
+          <button className="greenbtn" onClick={onEdit} disabled={disableInteraction}>
+            Edit
+          </button>
+          <button className="redbtn" onClick={() => deleteFood(food.id)} disabled={disableInteraction}>
+            Delete
+          </button>
         </div>
-      )}
-
-      {isConfirmingDelete && (
-        <ConfirmationModal
-          message={`Are you sure you want to delete "${food.name}"?`}
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
       )}
     </li>
   );

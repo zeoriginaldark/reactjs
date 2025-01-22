@@ -3,8 +3,8 @@
     {
       "name": "burger",
       "imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-5-600x900.jpg",
-      "id": "d43c",
-      "price": 120
+      "price": 120,
+      "id": "d43c"
     },
     {
       "name": "french fries",

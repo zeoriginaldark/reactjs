@@ -10,7 +10,7 @@ const StyledList = styled.ul`
   padding: 0;
 `;
 
-const Itemlist = ({ foodItems, deleteFood, editFood }) => {
+const Itemlist = ({ foodItems, deleteFood, editFood, editingId, setEditingId }) => {
   return (
     <StyledList>
       {Array.isArray(foodItems) && foodItems.length > 0 ? (
@@ -19,7 +19,13 @@ const Itemlist = ({ foodItems, deleteFood, editFood }) => {
             key={food.id}
             food={food}
             deleteFood={deleteFood}
-            editFood={editFood}
+            editFood={(newName, newImageUrl, newPrice) =>
+              editFood(food.id, newName, newImageUrl, newPrice)
+            }
+            isEditing={editingId === food.id}
+            disableInteraction={!!editingId && editingId !== food.id}
+            onEdit={() => setEditingId(food.id)}
+            onCancelEdit={() => setEditingId(null)}
           />
         ))
       ) : (
