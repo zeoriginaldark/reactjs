@@ -4,6 +4,7 @@ import ConfirmationModal from './ConfirmationM';
 const LineItem = ({ food, deleteFood, editFood }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(food.name);
+  const [newPrice, setNewPrice] = useState(food.price || 0);
   const [newImg, setNewImg] = useState(food.imageUrl || '');
   
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
@@ -16,7 +17,7 @@ const LineItem = ({ food, deleteFood, editFood }) => {
     e.preventDefault();
     const finalImgUrl = newImg.trim() === '' ? '/images/default.jpg' : newImg;
 
-    editFood(food.id, newName, finalImgUrl);
+    editFood(food.id, newName, finalImgUrl, newPrice);
     setNewImg(finalImgUrl);
     setIsEditing(false);
   };
@@ -47,6 +48,13 @@ const LineItem = ({ food, deleteFood, editFood }) => {
             required
           />
           <input
+            name="newprice"
+            type="number"
+            value={newPrice}
+            placeholder='Food price'
+            onChange={(e) => setNewPrice(e.target.value)}
+          />
+          <input
             name="newimg"
             type="text"
             value={newImg}
@@ -65,6 +73,7 @@ const LineItem = ({ food, deleteFood, editFood }) => {
               className='foodImage'
             />
             <span className='foodName'>{food.name}</span>
+            <span className='foodPrice'>{food.price}</span>
           </div>
           <button className='greenbtn' onClick={handleEditToggle}>Edit</button>
           <button className='redbtn' onClick={handleDelete}>Delete</button>

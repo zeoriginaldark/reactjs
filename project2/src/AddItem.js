@@ -38,6 +38,7 @@ const StyledForm = styled.div`
 
 const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
   const [foodName, setFoodName] = useState('');
+  const [foodPrice, setFoodPrice] = useState(0);
   const [imageMethod, setImageMethod] = useState('local');
   const [imageFile, setImageFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -87,7 +88,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
         imageUrl = await uploadFileToImgur(imageFile);
       }
 
-      addFood({ name: foodName, imageUrl });
+      addFood({ name: foodName, imageUrl, price: foodPrice });
 
       setFoodName('');
       imgUrlRef.current = '';
@@ -122,7 +123,7 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         ariaHideApp={false}
-        style={{ content:{ backgroundColor: 'transparent' }}}
+        style={{ overlay:{ backgroundColor: 'rgba(0, 0, 0, 0.7)'},  content:{backgroundColor:'transparent',border: 0}}}
       >
         <ModalStyles>
           <div className="modalContent">
@@ -138,6 +139,17 @@ const AddItem = ({ addFood, isModalOpen, setIsModalOpen }) => {
                     type="text"
                     value={foodName}
                     onChange={(e) => setFoodName(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Food Price:
+                  <input
+                    id="priceinput"
+                    type="number"
+                    onChange={(e) => setFoodPrice(e.target.value)}
                     required
                   />
                 </label>

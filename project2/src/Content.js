@@ -17,7 +17,6 @@ const StyledMain = styled.div`
   li {
     display: flex;
     justify-content:space-between;
-    height: 146px;
     padding:10px;
     flex-direction: column;
     background-color: ${({ theme }) => theme.listbg};
@@ -73,6 +72,15 @@ const StyledMain = styled.div`
     font-size: 1rem;
   }
 
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
   .foodContent {
     display: flex;
     align-items: center;
@@ -90,6 +98,11 @@ const StyledMain = styled.div`
   }
 
   .foodName {
+    flex-grow: 1;
+    font-size: 1rem;
+  }
+
+  .foodPrice {
     flex-grow: 1;
     font-size: 1rem;
   }

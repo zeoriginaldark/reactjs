@@ -18,8 +18,7 @@ const ModalContainer = styled.div`
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.color};
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
     top: 50%;
     left: 50%;
     right: auto;

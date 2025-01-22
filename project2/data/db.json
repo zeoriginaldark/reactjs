@@ -3,52 +3,62 @@
     {
       "name": "burger",
       "imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-5-600x900.jpg",
-      "id": "d43c"
+      "id": "d43c",
+      "price": 120
     },
     {
       "name": "french fries",
       "imageUrl": "https://static.fanpage.it/wp-content/uploads/sites/22/2020/09/iStock-618214356.jpg",
+      "price": 90,
       "id": "7533"
     },
     {
       "name": "fish n chips",
       "imageUrl": "https://fthmb.tqn.com/uALIO4N-VCYA5SXIguM_9sJfEnk=/3606x2352/filters:fill(auto,1)/IMG_5442-58b427d35f9b586046d8dfa1.JPG",
-      "id": "f4ad"
+      "id": "f4ad",
+      "price": 0
     },
     {
       "name": "beans on toast",
       "imageUrl": "https://i.pinimg.com/originals/bb/3a/a6/bb3aa6b53dfb065ec9118a872d50e6e8.jpg",
-      "id": "d311"
+      "id": "d311",
+      "price": 0
     },
     {
       "name": "mashed potatoes",
       "imageUrl": "https://steamykitchen.com/wp-content/uploads/2012/07/very-best-mashed-potatoes-recipe-8199.jpg",
-      "id": "294d"
+      "id": "294d",
+      "price": 0
     },
     {
       "name": "momo",
       "imageUrl": "https://recipedose.com/wp-content/uploads/2013/03/Chicken-momos.jpg",
-      "id": "080e"
+      "id": "080e",
+      "price": 0
     },
     {
       "name": "chowmein",
       "imageUrl": "https://laurenslatest.com/wp-content/uploads/2021/04/chow-mein-12-scaled.jpg",
-      "id": "bfd4"
+      "id": "bfd4",
+      "price": 0
     },
     {
       "id": "eea8",
       "name": "nachos",
-      "imageUrl": "https://i.imgur.com/mrT8e1O.jpeg"
+      "imageUrl": "https://i.imgur.com/mrT8e1O.jpeg",
+      "price": 0
     },
     {
       "id": "23a2",
       "name": "pizza",
-      "imageUrl": "https://i.imgur.com/zZ0i41V.jpeg"
+      "imageUrl": "https://i.imgur.com/zZ0i41V.jpeg",
+      "price": 0
     },
     {
       "id": "ee09",
       "name": "mayonnaise ",
-      "imageUrl": "https://i.imgur.com/3tv3KSC.jpeg"
+      "imageUrl": "https://i.imgur.com/3tv3KSC.jpeg",
+      "price": 0
     }
   ]
 }

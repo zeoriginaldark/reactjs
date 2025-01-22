@@ -6,7 +6,7 @@ export const ModalStyles = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,6 +37,15 @@ export const ModalStyles = styled.div`
   }
 
   input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  input[type="number"] {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
